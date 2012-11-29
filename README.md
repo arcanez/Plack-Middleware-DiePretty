@@ -1,2 +1,0 @@
-Plack-Middleware-DiePretty
-==========================
