@@ -6,6 +6,10 @@ use Plack::Util::Accessor qw(template);
 use Try::Tiny;
 use Template;
 use Path::Class;
+use FindBin qw($Bin);
+
+our $VERSION = '0.001';
+$VERSION = eval $VERSION;
 
 sub call {
   my ($self, $env) = @_;
@@ -15,10 +19,10 @@ sub call {
   my $caught;
   my $res = try { $self->app->($env); } catch { $caught = $_; [ 500, [ 'Content-Type' => 'text/plain; charset=utf-8' ], [ $caught ] ]; };
 
-  my $template = file( $self->template || '/var/www/html/error.html' );
+  my $template = file( $self->template || "$Bin/html/error.html" );
 
   if ($caught || (ref $res eq 'ARRAY' && $res->[0] == 500)) {
-    Template->new({ INCLUDE_PATH => $template->dir })->process($template->basename, { caught => $caught }, \(my $html)) || die $@;
+    Template->new({ INCLUDE_PATH => $template->dir->absolute })->process($template->basename, { caught => $caught }, \(my $html)) || die $@;
     $res = [ 500, [ 'Content-Type' => 'text/html'], [ $html ] ];
   }
   $res;
