@@ -1,5 +1,7 @@
 package Plack::Middleware::DiePretty;
 use parent 'Plack::Middleware';
+use strict;
+use warnings;
 use Plack::Util::Accessor qw(template);
 use Try::Tiny;
 use Template;
