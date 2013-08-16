@@ -4,7 +4,7 @@ use 5.008001;
 use ExtUtils::MakeMaker;
  
 WriteMakefile(
-  NAME => 'Plack-Middleware-DiePretty',
+  NAME => 'Plack::Middleware::DiePretty',
   AUTHOR  => 'Justin Hunter <justin.d.hunter@gmail.com>',
   VERSION_FROM => 'lib/Plack/Middleware/DiePretty.pm',
   LICENSE => 'perl',
